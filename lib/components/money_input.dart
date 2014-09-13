@@ -1,6 +1,7 @@
 library money_input;
 import 'dart:html' hide Timeline;
 import 'package:basic_input/formatting.dart';
+import 'package:basic_input/input_utils.dart';
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 
@@ -14,16 +15,15 @@ import 'package:paper_elements/paper_input.dart';
 final _logger = new Logger("moneyInput");
 
 @CustomTag("plus-money-input")
-class MoneyInput extends PolymerElement {
+class MoneyInput extends CheckedInputField {
 
-  /// Label/placeholder text
-  @observable String placeholder = 'Enter amount';
-  /// If true this is a requried field
-  @observable bool required = false;
   num get amount => _amount;
 
   MoneyInput.created() : super.created() {
     _logger.fine('MoneyInput created sr => $shadowRoot');
+    // custom <MoneyInput created>
+    // end <MoneyInput created>
+
   }
 
   @override
@@ -39,9 +39,6 @@ class MoneyInput extends PolymerElement {
   void ready() {
     super.ready();
     _logger.fine('MoneyInput ready with sr => $shadowRoot');
-    // custom <MoneyInput created>
-    // end <MoneyInput created>
-
     // custom <MoneyInput ready>
     // end <MoneyInput ready>
 
@@ -49,16 +46,16 @@ class MoneyInput extends PolymerElement {
 
   @override
   void attached() {
+    // custom <MoneyInput pre-attached>
+    input = $['money-input'];
+    // end <MoneyInput pre-attached>
+
     super.attached();
     _logger.fine('MoneyInput attached with sr => $shadowRoot');
     assert(shadowRoot != null);
     // custom <MoneyInput attached>
 
-    _amountInput = $['money-amount'] as PaperInput;
-    final _placeholder = attributes['placeholder'];
-    if(_placeholder != null) {
-      placeholder = _placeholder;
-    }
+    placeholder = attributes['placeholder'];
 
     // end <MoneyInput attached>
 
@@ -68,31 +65,48 @@ class MoneyInput extends PolymerElement {
 
   // custom <class MoneyInput>
 
-  String get inputText => _amountInput.inputValue;
-
+  /*
   void blurHandler(Event e) {
     _amount = pullNum(inputText);
     if(_amount != null) {
-      _amountInput.inputValue = moneyFormat(_amount, false);
+      inputText = moneyFormat(_amount, false);
+    }
+  }
+  */
+
+  @override
+  String validateOnInput() {
+    final txt = inputText;
+    _amount = pullNum(txt);
+    if(_amount == null) {
+      return (inputText.length > 0)?
+        "Please enter a dollar amount" :
+        "This field is required";
+    } else {
+      inputText = moneyFormat(_amount, false);
+      return null;
     }
   }
 
+  @override
+  String validateOnBlur() => error;
+
+  /*
   void inputHandler(Event e) {
     _amount = pullNum(inputText);
     if(_amount == null) {
-      final error = (inputText.length > 0)?
+      error = (inputText.length > 0)?
         "Please enter a dollar amount" :
         "This field is required";
-      _amountInput.jsElement.callMethod('setCustomValidity', [error]);
     } else {
-      _amountInput.jsElement.callMethod('setCustomValidity', []);
-      _amountInput.inputValue = moneyFormat(_amount, false);
+      error = null;
+      inputText = moneyFormat(_amount, false);
     }
   }
+  */
 
   // end <class MoneyInput>
   num _amount = 0;
-  PaperInput _amountInput;
 }
 
 

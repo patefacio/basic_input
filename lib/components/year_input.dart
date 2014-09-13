@@ -17,6 +17,9 @@ class YearInput extends PolymerElement {
 
   YearInput.created() : super.created() {
     _logger.fine('YearInput created sr => $shadowRoot');
+    // custom <YearInput created>
+    // end <YearInput created>
+
   }
 
   @override
@@ -32,9 +35,6 @@ class YearInput extends PolymerElement {
   void ready() {
     super.ready();
     _logger.fine('YearInput ready with sr => $shadowRoot');
-    // custom <YearInput created>
-    // end <YearInput created>
-
     // custom <YearInput ready>
     // end <YearInput ready>
 
@@ -42,6 +42,9 @@ class YearInput extends PolymerElement {
 
   @override
   void attached() {
+    // custom <YearInput pre-attached>
+    // end <YearInput pre-attached>
+
     super.attached();
     _logger.fine('YearInput attached with sr => $shadowRoot');
     assert(shadowRoot != null);

@@ -1,6 +1,7 @@
 library simple_string_input;
 import 'dart:html' hide Timeline;
 import 'package:basic_input/formatting.dart';
+import 'package:basic_input/input_utils.dart';
 import 'package:logging/logging.dart';
 import 'package:paper_elements/paper_input.dart';
 import 'package:polymer/polymer.dart';
@@ -12,16 +13,15 @@ import 'package:polymer/polymer.dart';
 final _logger = new Logger("simpleStringInput");
 
 @CustomTag("plus-simple-string-input")
-class SimpleStringInput extends PolymerElement {
+class SimpleStringInput extends CheckedInputField {
 
-  /// Label/placeholder text
-  @observable String placeholder = 'Enter amount';
-  /// If true this is a requried field
-  @observable bool required = false;
   StringValueConstraint valueConstraint;
 
   SimpleStringInput.created() : super.created() {
     _logger.fine('SimpleStringInput created sr => $shadowRoot');
+    // custom <SimpleStringInput created>
+    // end <SimpleStringInput created>
+
   }
 
   @override
@@ -37,9 +37,6 @@ class SimpleStringInput extends PolymerElement {
   void ready() {
     super.ready();
     _logger.fine('SimpleStringInput ready with sr => $shadowRoot');
-    // custom <SimpleStringInput created>
-    // end <SimpleStringInput created>
-
     // custom <SimpleStringInput ready>
     // end <SimpleStringInput ready>
 
@@ -47,16 +44,16 @@ class SimpleStringInput extends PolymerElement {
 
   @override
   void attached() {
+    // custom <SimpleStringInput pre-attached>
+    input = $['simple-string'] as PaperInput;
+    // end <SimpleStringInput pre-attached>
+
     super.attached();
     _logger.fine('SimpleStringInput attached with sr => $shadowRoot');
     assert(shadowRoot != null);
     // custom <SimpleStringInput attached>
 
-    _input = $['simple-string'] as PaperInput;
-    final _placeholder = attributes['placeholder'];
-    if(_placeholder != null) {
-      placeholder = _placeholder;
-    }
+    placeholder = attributes['placeholder'];
 
     // end <SimpleStringInput attached>
 
@@ -66,19 +63,15 @@ class SimpleStringInput extends PolymerElement {
 
   // custom <class SimpleStringInput>
 
-  String get inputText => _input.inputValue;
+  @override
+    String validateOnInput() =>
+    valueConstraint != null?
+    valueConstraint(inputText) : error;
 
-  void inputHandler(Event e) {
-    if(valueConstraint != null) {
-      final error = valueConstraint(inputText);
-      _input.jsElement.callMethod('setCustomValidity',
-          error == null? [] : [error]);
-    }
-  }
-
+  @override
+    String validateOnBlur() => error;
 
   // end <class SimpleStringInput>
-  PaperInput _input;
 }
 
 

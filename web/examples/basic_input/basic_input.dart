@@ -5,6 +5,7 @@ import 'package:logging/logging.dart';
 import 'dart:html';
 import 'package:basic_input/components/money_input.dart';
 import 'package:basic_input/components/simple_string_input.dart';
+import 'package:basic_input/components/rate_input.dart';
 
 // end <additional imports>
 
@@ -20,6 +21,10 @@ main() {
   final mi = (document
     .querySelector('#sample-money-input') as MoneyInput)
     ..placeholder = 'Foobar';
+
+  final ri = (document
+      .querySelector('#sample-rate-input') as RateInput);
+
 
   final si = (document
     .querySelector('#simple-string-input') as SimpleStringInput)

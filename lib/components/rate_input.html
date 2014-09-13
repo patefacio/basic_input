@@ -3,6 +3,7 @@
 
 
 <!-- custom <rateInput head> -->
+<link rel="import" href="../../../packages/paper_elements/paper_input.html">
 <!-- end <rateInput head> -->
 
 
@@ -14,6 +15,16 @@
     </style>
 
     <!-- custom <rateInput template> -->
+
+    <paper-input floatingLabel
+                 id="rate-input"
+                 type="text"
+                 label="{{placeholder}}"
+                 validateImmediately
+                 >
+    </paper-input>
+
+
     <!-- end <rateInput template> -->
 
   </template>

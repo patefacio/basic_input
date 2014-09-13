@@ -1,6 +1,7 @@
 library date_input;
 import 'dart:html' hide Timeline;
 import 'package:basic_input/formatting.dart';
+import 'package:basic_input/input_utils.dart';
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 
@@ -17,6 +18,9 @@ class DateInput extends PolymerElement {
 
   DateInput.created() : super.created() {
     _logger.fine('DateInput created sr => $shadowRoot');
+    // custom <DateInput created>
+    // end <DateInput created>
+
   }
 
   @override
@@ -32,9 +36,6 @@ class DateInput extends PolymerElement {
   void ready() {
     super.ready();
     _logger.fine('DateInput ready with sr => $shadowRoot');
-    // custom <DateInput created>
-    // end <DateInput created>
-
     // custom <DateInput ready>
     // end <DateInput ready>
 
@@ -42,6 +43,9 @@ class DateInput extends PolymerElement {
 
   @override
   void attached() {
+    // custom <DateInput pre-attached>
+    // end <DateInput pre-attached>
+
     super.attached();
     _logger.fine('DateInput attached with sr => $shadowRoot');
     assert(shadowRoot != null);

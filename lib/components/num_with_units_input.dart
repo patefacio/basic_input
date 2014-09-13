@@ -1,6 +1,7 @@
 library num_with_units_input;
 import 'dart:html' hide Timeline;
 import 'package:basic_input/formatting.dart';
+import 'package:basic_input/input_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
@@ -19,6 +20,9 @@ class NumWithUnitsInput extends PolymerElement {
 
   NumWithUnitsInput.created() : super.created() {
     _logger.fine('NumWithUnitsInput created sr => $shadowRoot');
+    // custom <NumWithUnitsInput created>
+    // end <NumWithUnitsInput created>
+
   }
 
   @override
@@ -34,9 +38,6 @@ class NumWithUnitsInput extends PolymerElement {
   void ready() {
     super.ready();
     _logger.fine('NumWithUnitsInput ready with sr => $shadowRoot');
-    // custom <NumWithUnitsInput created>
-    // end <NumWithUnitsInput created>
-
     // custom <NumWithUnitsInput ready>
     // end <NumWithUnitsInput ready>
 
@@ -44,6 +45,9 @@ class NumWithUnitsInput extends PolymerElement {
 
   @override
   void attached() {
+    // custom <NumWithUnitsInput pre-attached>
+    // end <NumWithUnitsInput pre-attached>
+
     super.attached();
     _logger.fine('NumWithUnitsInput attached with sr => $shadowRoot');
     assert(shadowRoot != null);
