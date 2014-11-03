@@ -12,7 +12,7 @@ import 'package:polymer/polymer.dart';
 final _logger = new Logger("dateInput");
 
 @CustomTag("plus-date-input")
-class DateInput extends PolymerElement {
+class DateInput extends CheckedInputField {
 
   DateTime get date => _date;
 
@@ -44,22 +44,58 @@ class DateInput extends PolymerElement {
   @override
   void attached() {
     // custom <DateInput pre-attached>
+    input = $['date-input'];
     // end <DateInput pre-attached>
 
     super.attached();
     _logger.fine('DateInput attached with sr => $shadowRoot');
     assert(shadowRoot != null);
     // custom <DateInput attached>
+
+    placeholder = attributes['placeholder'];
+
     // end <DateInput attached>
 
+    _isAttached = true;
+    _onAttachedHandlers.forEach((handler) => handler(this));
+  }
+
+  void onAttached(void onAttachedHandler(DateInput)) {
+    if(_isAttached) {
+      onAttachedHandler(this);
+    } else {
+      _onAttachedHandlers.add(onAttachedHandler);
+    }
   }
 
 
-
   // custom <class DateInput>
+
+  String formatInput(Object value) {
+    _date = value;
+    return dateFormat(value);
+  }
+  
+  @override String validateOnInput() => null;
+  @override String validateOnBlur() {
+    final txt = inputText;
+    if(txt.length == 0) return null;
+    _date = pullDate(txt);
+    if(_date == null) {
+      return (inputText.length > 0)?
+        "Please enter a valid date (YYYY-DD-MM)" :
+        "This field is required";
+    } else {
+      inputText = formatInput(_date);
+      return null;
+    }
+  }
+
+
   // end <class DateInput>
-  InputElement _dateElement;
   DateTime _date;
+  bool _isAttached = false;
+  List _onAttachedHandlers = [];
 }
 
 

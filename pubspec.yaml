@@ -2,15 +2,15 @@ name: basic_input
 version: 0.0.1
 author: Daniel Davidson <dbdavidson@yahoo.com>
 dependencies:
-  polymer: ">=0.13.0"
+  polymer: ">=0.15.0"
   logging: ">=0.9.2 <0.10.0"
-  collection: ">=0.9.4 < 0.10.0"
+  collection: ">=1.0.0"
 
 # custom <basic_input dependencies>
 
-  paper_elements: ">=0.1.1+2"
+  paper_elements: ">=0.4.0"
   core_elements: ">=0.2.0+1"
-  intl: ">=0.9.10 < 0.10.0"
+  intl: ">=0.11.9"
 
 # end <basic_input dependencies>
 

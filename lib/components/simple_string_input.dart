@@ -57,21 +57,35 @@ class SimpleStringInput extends CheckedInputField {
 
     // end <SimpleStringInput attached>
 
+    _isAttached = true;
+    _onAttachedHandlers.forEach((handler) => handler(this));
   }
 
+  void onAttached(void onAttachedHandler(SimpleStringInput)) {
+    if(_isAttached) {
+      onAttachedHandler(this);
+    } else {
+      _onAttachedHandlers.add(onAttachedHandler);
+    }
+  }
 
 
   // custom <class SimpleStringInput>
 
-  @override
-    String validateOnInput() =>
+  @override formatInput(Object value) {
+    assert(value is String);
+    return value;
+  }
+
+  @override String validateOnInput() =>
     valueConstraint != null?
     valueConstraint(inputText) : error;
 
-  @override
-    String validateOnBlur() => error;
+  @override String validateOnBlur() => error;
 
   // end <class SimpleStringInput>
+  bool _isAttached = false;
+  List _onAttachedHandlers = [];
 }
 
 

@@ -59,20 +59,29 @@ class MoneyInput extends CheckedInputField {
 
     // end <MoneyInput attached>
 
+    _isAttached = true;
+    _onAttachedHandlers.forEach((handler) => handler(this));
   }
 
+  void onAttached(void onAttachedHandler(MoneyInput)) {
+    if(_isAttached) {
+      onAttachedHandler(this);
+    } else {
+      _onAttachedHandlers.add(onAttachedHandler);
+    }
+  }
 
 
   // custom <class MoneyInput>
 
-  /*
-  void blurHandler(Event e) {
-    _amount = pullNum(inputText);
-    if(_amount != null) {
-      inputText = moneyFormat(_amount, false);
-    }
+  set amount(num value) {
+    inputText = moneyFormat(value, false);
   }
-  */
+
+  String formatInput(num value) {
+    _amount = value;
+    return moneyFormat(value, false);
+  }
 
   @override
   String validateOnInput() {
@@ -83,30 +92,17 @@ class MoneyInput extends CheckedInputField {
         "Please enter a dollar amount" :
         "This field is required";
     } else {
-      inputText = moneyFormat(_amount, false);
+      inputText = formatInput(_amount);
       return null;
     }
   }
 
-  @override
-  String validateOnBlur() => error;
-
-  /*
-  void inputHandler(Event e) {
-    _amount = pullNum(inputText);
-    if(_amount == null) {
-      error = (inputText.length > 0)?
-        "Please enter a dollar amount" :
-        "This field is required";
-    } else {
-      error = null;
-      inputText = moneyFormat(_amount, false);
-    }
-  }
-  */
+  @override String validateOnBlur() => error;
 
   // end <class MoneyInput>
   num _amount = 0;
+  bool _isAttached = false;
+  List _onAttachedHandlers = [];
 }
 
 

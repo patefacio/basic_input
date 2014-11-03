@@ -54,8 +54,17 @@ class NumWithUnitsInput extends PolymerElement {
     // custom <NumWithUnitsInput attached>
     // end <NumWithUnitsInput attached>
 
+    _isAttached = true;
+    _onAttachedHandlers.forEach((handler) => handler(this));
   }
 
+  void onAttached(void onAttachedHandler(NumWithUnitsInput)) {
+    if(_isAttached) {
+      onAttachedHandler(this);
+    } else {
+      _onAttachedHandlers.add(onAttachedHandler);
+    }
+  }
 
 
   // custom <class NumWithUnitsInput>
@@ -63,6 +72,8 @@ class NumWithUnitsInput extends PolymerElement {
   InputElement _valueElement;
   NumberFormat _numberFormat;
   num _number;
+  bool _isAttached = false;
+  List _onAttachedHandlers = [];
 }
 
 

@@ -51,14 +51,25 @@ class YearInput extends PolymerElement {
     // custom <YearInput attached>
     // end <YearInput attached>
 
+    _isAttached = true;
+    _onAttachedHandlers.forEach((handler) => handler(this));
   }
 
+  void onAttached(void onAttachedHandler(YearInput)) {
+    if(_isAttached) {
+      onAttachedHandler(this);
+    } else {
+      _onAttachedHandlers.add(onAttachedHandler);
+    }
+  }
 
 
   // custom <class YearInput>
   // end <class YearInput>
   InputElement _yearElement;
   int _year;
+  bool _isAttached = false;
+  List _onAttachedHandlers = [];
 }
 
 

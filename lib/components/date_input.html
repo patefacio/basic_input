@@ -3,6 +3,7 @@
 
 
 <!-- custom <dateInput head> -->
+<link rel="import" href="../../../packages/paper_elements/paper_input.html">
 <!-- end <dateInput head> -->
 
 
@@ -14,6 +15,15 @@
     </style>
 
     <!-- custom <dateInput template> -->
+
+    <paper-input floatingLabel
+                 id="date-input"
+                 type="text"
+                 label="{{placeholder}}"
+                 validateImmediately
+                 >
+    </paper-input>
+
     <!-- end <dateInput template> -->
 
   </template>

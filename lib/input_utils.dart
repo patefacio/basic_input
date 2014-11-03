@@ -13,15 +13,15 @@ abstract class CheckedInputField extends PolymerElement {
   @observable String placeholder = 'Enter amount';
   /// If true this is a requried field
   @observable bool required = true;
-  String get error => _error;
+  @observable String error;
 
   // custom <class CheckedInputField>
 
   CheckedInputField.created() : super.created();
 
-  set error(String text) {
-    _error = text;
-    _input.jsElement.callMethod('setCustomValidity', [_error]);
+  void setError(String text) {
+    error = text;
+    _input.jsElement.callMethod('setCustomValidity', [error]);
   }
 
   bool get isValid =>
@@ -31,10 +31,8 @@ abstract class CheckedInputField extends PolymerElement {
 
   String get inputText => _input.inputValue;
 
-  set inputText(String text) {
+  set inputText(String text) =>
     _input.inputValue = text;
-    //validateOnInput();
-  }
 
   set input(PaperInput paperInput) => _input = paperInput;
 
@@ -44,25 +42,31 @@ abstract class CheckedInputField extends PolymerElement {
   void attached() {
     super.attached();
     _input.onInput.listen((var _) {
-      error = validateOnInput();
+      setError(validateOnInput());
     });
     _input.onBlur.listen((var _) {
-      error = validateOnBlur();
+      setError(validateOnBlur());
     });
   }
 
+  String formatInput(Object value);
   String validateOnInput();
   String validateOnBlur();
+  bool get hasContent {
+    final txt = inputText;
+    return txt != null && txt.length > 0;
+  }
 
   // end <class CheckedInputField>
   PaperInput _input;
-  String _error;
 }
 
 // custom <library input_utils>
 
 clearPaperInput(PaperInput paperInput) =>
-  (paperInput..inputValue = '')
+  (paperInput
+      ..jsElement.callMethod('setCustomValidity', [])
+      ..inputValue = '')
       .querySelector('* /deep/ #input')
   ..focus()
   ..blur();

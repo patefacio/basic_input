@@ -53,20 +53,29 @@ class RateInput extends CheckedInputField {
     assert(shadowRoot != null);
     // custom <RateInput attached>
 
-    final placeholder = attributes['placeholder'];
+    placeholder = attributes['placeholder'];
 
     // end <RateInput attached>
 
+    _isAttached = true;
+    _onAttachedHandlers.forEach((handler) => handler(this));
   }
 
+  void onAttached(void onAttachedHandler(RateInput)) {
+    if(_isAttached) {
+      onAttachedHandler(this);
+    } else {
+      _onAttachedHandlers.add(onAttachedHandler);
+    }
+  }
 
 
   // custom <class RateInput>
 
   double get rateAsPct => pullNum(inputText, 0)/100.0;
 
-  @override
-    String validateOnInput() => null;
+  @override formatInput(Object value) => percentFormat(value, true);
+  @override String validateOnInput() => null;
 
   @override String validateOnBlur() {
     const errorMsg = "Please enter valid percent (e.g. 20%)";
@@ -74,7 +83,7 @@ class RateInput extends CheckedInputField {
       final r = pullNum(inputText);
       if(r == null) return errorMsg;
       _rate = r/100.0;
-      inputText = percentFormat(_rate, true);
+      inputText = formatInput(_rate);
       return null;
     } on Exception catch(e) {
       return errorMsg;
@@ -84,6 +93,8 @@ class RateInput extends CheckedInputField {
 
   // end <class RateInput>
   num _rate = 0;
+  bool _isAttached = false;
+  List _onAttachedHandlers = [];
 }
 
 
