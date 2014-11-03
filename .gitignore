@@ -1,7 +1,7 @@
 *.~*~
 packages
 build
-.pub/*
 # custom <additional>
+.pub/
 pubspec.lock
 # end <additional>
