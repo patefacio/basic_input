@@ -9,6 +9,9 @@ Common input types
 # Purpose
 
 <!--- custom <purpose> --->
+
+Practice repository for Dart input components. Nothing to see here.
+
 <!--- end <purpose> --->
 
 
@@ -20,7 +23,3 @@ Common input types
 
 <!--- custom <examples> --->
 <!--- end <examples> --->
-
-
-
-
