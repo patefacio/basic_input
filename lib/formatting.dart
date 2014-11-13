@@ -34,7 +34,8 @@ num pullNum(String s, [num defaultValue]) {
 
     if(numberChars.length == 0 || s == '-' || s == '.') return defaultValue;
     s = new String.fromCharCodes(numberChars);
-    return negative? -double.parse(s) : double.parse(s);
+    final result = double.parse(s, (source) => defaultValue);
+    return negative? -result : result;
   } catch(e) {
     return defaultValue;
   }
