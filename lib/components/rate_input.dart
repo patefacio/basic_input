@@ -90,7 +90,6 @@ class RateInput extends CheckedInputField {
     }
   }
 
-
   // end <class RateInput>
   num _rate = 0;
   bool _isAttached = false;

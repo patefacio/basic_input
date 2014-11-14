@@ -90,8 +90,7 @@ class DateInput extends CheckedInputField {
       return null;
     }
   }
-
-
+  
   // end <class DateInput>
   DateTime _date;
   bool _isAttached = false;

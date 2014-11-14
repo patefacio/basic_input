@@ -23,6 +23,10 @@ main() {
   final mi = (document
     .querySelector('#sample-money-input') as MoneyInput)
     ..placeholder = 'Foobar';
+  
+  mi.onUpdate((Event event) => 
+      print("Money Input updated: ${mi.amount}")
+      );
 
   final ri = (document
       .querySelector('#sample-rate-input') as RateInput);

@@ -4,6 +4,7 @@ import 'package:observe/observe.dart';
 import 'package:paper_elements/paper_input.dart';
 import 'package:polymer/polymer.dart';
 // custom <additional imports>
+import 'dart:html';
 // end <additional imports>
 
 /// Wraps a PaperInput with consistent API supporting required
@@ -56,6 +57,11 @@ abstract class CheckedInputField extends PolymerElement {
     final txt = inputText;
     return txt != null && txt.length > 0;
   }
+  
+  onUpdate(observer) =>
+    _input.onInput.listen((Event event) {
+      observer(event);
+    });
 
   // end <class CheckedInputField>
   PaperInput _input;
