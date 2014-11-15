@@ -13,7 +13,7 @@ import 'package:polymer/polymer.dart';
 final _logger = new Logger("numWithUnitsInput");
 
 @CustomTag("plus-num-with-units-input")
-class NumWithUnitsInput extends PolymerElement {
+class NumWithUnitsInput extends CheckedInputField {
 
   String units;
   num get number => _number;
@@ -46,12 +46,18 @@ class NumWithUnitsInput extends PolymerElement {
   @override
   void attached() {
     // custom <NumWithUnitsInput pre-attached>
+    input = $['num-with-units-input'];
+
     // end <NumWithUnitsInput pre-attached>
 
     super.attached();
     _logger.fine('NumWithUnitsInput attached with sr => $shadowRoot');
     assert(shadowRoot != null);
     // custom <NumWithUnitsInput attached>
+
+    placeholder = attributes['placeholder'];
+    units = attributes['units'];
+
     // end <NumWithUnitsInput attached>
 
     _isAttached = true;
@@ -68,9 +74,38 @@ class NumWithUnitsInput extends PolymerElement {
 
 
   // custom <class NumWithUnitsInput>
+
+  _formatNumber(num n) => (_formatter != null?
+      _formatter.format(n) :
+      numberFormat(n)) + (units != null? ' $units' : '');
+
+
+  String _formatInput() => inputText = _formatNumber(_number);
+  set number(num n) {
+    _number = n;
+    _formatInput();
+  }
+
+  @override
+  String validateOnInput() {
+    final txt = inputText;
+    _number = pullNum(txt);
+    if(_number == null) {
+      return (inputText.length > 0)?
+        "Please enter a valid number" :
+        "This field is required";
+    } else {
+      _formatInput();
+      return null;
+    }
+  }
+
+  @override String validateOnBlur() => error;
+
+
   // end <class NumWithUnitsInput>
   InputElement _valueElement;
-  NumberFormat _numberFormat;
+  NumberFormat _formatter;
   num _number;
   bool _isAttached = false;
   List _onAttachedHandlers = [];

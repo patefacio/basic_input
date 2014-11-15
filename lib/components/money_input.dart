@@ -75,13 +75,11 @@ class MoneyInput extends CheckedInputField {
   // custom <class MoneyInput>
 
   set amount(num value) {
-    inputText = moneyFormat(value, false);
+    _amount = value;
+    _formatInput();
   }
 
-  String formatInput(num value) {
-    _amount = value;
-    return moneyFormat(value, false);
-  }
+  String _formatInput() => inputText = moneyFormat(_amount, false);
 
   @override
   String validateOnInput() {
@@ -92,7 +90,7 @@ class MoneyInput extends CheckedInputField {
         "Please enter a dollar amount" :
         "This field is required";
     } else {
-      inputText = formatInput(_amount);
+      _formatInput();
       return null;
     }
   }

@@ -70,6 +70,7 @@ RegExp _decimalNums = new RegExp(r"(\.\d+)");
 
 var _currencyFormatTwoDecimals = new NumberFormat(r'$#,##0.00;$(#,##0.00)', "en");
 var _currencyFormat = new NumberFormat(r'$#,##0;$(#,##0)', "en");
+var _numberFormat = new NumberFormat(r'#,##0', "en");
 var _percentFormat = new NumberFormat(r'#,##0.00%', "en");
 var _percentIntFormat = new NumberFormat(r'#,##0%', "en");
 var _basisPointFormat = new NumberFormat(r'#,##0.00 bps', "en");
@@ -83,6 +84,7 @@ var _currencyFormatM = new NumberFormat(r'$#,##0.##M;$(#,##0.##)M', "en");
 var _currencyFormatB = new NumberFormat(r'$#,##0.##B;$(#,##0.##)B', "en");
 var _currencyFormatT = new NumberFormat(r'$#,##0.##B;$(#,##0.##)T', "en");
 
+String numberFormat(num n) => _numberFormat.format(n);
 String dateFormat(DateTime d) => _dateFormat.format(d);
 
 var _defaultDate = new DateTime(1929, 10, 29);

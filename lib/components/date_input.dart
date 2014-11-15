@@ -71,11 +71,12 @@ class DateInput extends CheckedInputField {
 
   // custom <class DateInput>
 
-  String formatInput(Object value) {
-    _date = value;
-    return dateFormat(value);
+  String _formatInput() => inputText = dateFormat(_date);
+  set date(DateTime d) {
+    _date = d;
+    _formatInput();
   }
-  
+
   @override String validateOnInput() => null;
   @override String validateOnBlur() {
     final txt = inputText;
@@ -86,11 +87,11 @@ class DateInput extends CheckedInputField {
         "Please enter a valid date (YYYY-DD-MM)" :
         "This field is required";
     } else {
-      inputText = formatInput(_date);
+      _formatInput();
       return null;
     }
   }
-  
+
   // end <class DateInput>
   DateTime _date;
   bool _isAttached = false;

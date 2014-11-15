@@ -4,6 +4,7 @@ import 'package:logging/logging.dart';
 
 import 'dart:html';
 import 'package:basic_input/components/money_input.dart';
+import 'package:basic_input/components/num_with_units_input.dart';
 import 'package:basic_input/components/simple_string_input.dart';
 import 'package:basic_input/components/rate_input.dart';
 import 'package:basic_input/components/date_input.dart';
@@ -28,6 +29,9 @@ main() {
       print("Money Input updated: ${mi.amount}")
       );
 
+  final nwi = (document
+      .querySelector('#num-with-units-input') as NumWithUnitsInput);
+  
   final ri = (document
       .querySelector('#sample-rate-input') as RateInput);
 

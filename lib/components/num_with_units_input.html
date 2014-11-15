@@ -3,6 +3,7 @@
 
 
 <!-- custom <numWithUnitsInput head> -->
+<link rel="import" href="../../../packages/paper_elements/paper_input.html">
 <!-- end <numWithUnitsInput head> -->
 
 
@@ -14,6 +15,15 @@
     </style>
 
     <!-- custom <numWithUnitsInput template> -->
+
+    <paper-input floatingLabel
+                 id="num-with-units-input"
+                 type="text"
+                 label="{{placeholder}}"
+                 validateImmediately
+                 >
+    </paper-input>
+
     <!-- end <numWithUnitsInput template> -->
 
   </template>

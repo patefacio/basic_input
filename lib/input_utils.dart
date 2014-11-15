@@ -50,14 +50,13 @@ abstract class CheckedInputField extends PolymerElement {
     });
   }
 
-  String formatInput(Object value);
   String validateOnInput();
   String validateOnBlur();
   bool get hasContent {
     final txt = inputText;
     return txt != null && txt.length > 0;
   }
-  
+
   onUpdate(observer) =>
     _input.onInput.listen((Event event) {
       observer(event);

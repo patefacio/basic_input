@@ -73,8 +73,13 @@ class RateInput extends CheckedInputField {
   // custom <class RateInput>
 
   double get rateAsPct => pullNum(inputText, 0)/100.0;
+  String _formatInput() => inputText = percentFormat(_rate, true);
+  set rate(num r) {
+    _rate = r;
+    _formatInput();
+  }
 
-  @override formatInput(Object value) => percentFormat(value, true);
+
   @override String validateOnInput() => null;
 
   @override String validateOnBlur() {
@@ -82,8 +87,7 @@ class RateInput extends CheckedInputField {
     try {
       final r = pullNum(inputText);
       if(r == null) return errorMsg;
-      _rate = r/100.0;
-      inputText = formatInput(_rate);
+      rate = r/100.0;
       return null;
     } on Exception catch(e) {
       return errorMsg;

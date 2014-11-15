@@ -72,11 +72,6 @@ class SimpleStringInput extends CheckedInputField {
 
   // custom <class SimpleStringInput>
 
-  @override formatInput(Object value) {
-    assert(value is String);
-    return value;
-  }
-
   @override String validateOnInput() =>
     valueConstraint != null?
     valueConstraint(inputText) : error;
